@@ -1,0 +1,14 @@
+*.pro.user*
+build/
+build-*/
+debug/
+release/
+*.o
+*.obj
+*.exe
+*.dll
+*.moc
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+*.db-journal
