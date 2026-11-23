@@ -25,11 +25,25 @@ int main(int argc, char *argv[])
         qDebug() << "Table :" << q.value(0).toString();
 
     CompteDao dao;
-    Compte c(0, "Compte courant", "courant", 50000, 1);
-    if (dao.inserer(c))
-        qDebug() << "Compte insere, id =" << c.id();
-    else
-        qDebug() << "Erreur :" << dao.derniereErreur();
+
+    Compte c(0, "Compte test", "courant", 20000, 2);
+    if (!dao.inserer(c)) {
+        qDebug() << "Erreur insertion :" << dao.derniereErreur();
+    } else {
+        qDebug() << "Insere, id =" << c.id();
+
+        c.setNom("Compte modifie");
+        dao.modifier(c);
+
+        Compte trouve;
+        if (dao.trouver(c.id(), trouve))
+            qDebug() << "Trouve :" << trouve.id() << trouve.nom();
+
+        dao.supprimer(c.id());
+    }
+
+    for (const Compte &x : dao.lister())
+        qDebug() << "Liste :" << x.id() << x.nom() << x.soldeInitial();
 
     MainWindow w;
     w.show();
