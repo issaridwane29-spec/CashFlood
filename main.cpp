@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "databasemanager.h"
+#include "comptedao.h"
+#include "compte.h"
 
 #include <QApplication>
 #include <QDebug>
@@ -22,9 +24,17 @@ int main(int argc, char *argv[])
     while (q.next())
         qDebug() << "Table :" << q.value(0).toString();
 
+    CompteDao dao;
+    Compte c(0, "Compte courant", "courant", 50000, 1);
+    if (dao.inserer(c))
+        qDebug() << "Compte insere, id =" << c.id();
+    else
+        qDebug() << "Erreur :" << dao.derniereErreur();
+
     MainWindow w;
     w.show();
     return a.exec();
+
 }
 
 

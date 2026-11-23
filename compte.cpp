@@ -2,7 +2,14 @@
 
 #include <QString>
 
-Compte::Compte() : m_id(0), m_soldeInitial(0), m_ordre(0) {}
+Compte::Compte() : m_id(0), m_soldeInitial(0), m_ordre(0) {
+
+}
+
+Compte::Compte(int id, const QString &nom, const QString &type, double soldeInitial, int ordre):
+    m_id(id), m_nom(nom), m_type(type), m_soldeInitial(soldeInitial), m_ordre(ordre) {
+
+}
 
 int Compte::id() const { return m_id; }
 void Compte::setId(int id) { m_id = id; }

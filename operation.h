@@ -33,7 +33,6 @@ public:
 
 private:
     int m_id;
-    QString m_nom;
     QString m_type;
     double m_montant;
     QDate m_date;
