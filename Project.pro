@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     budget.cpp \
     categorie.cpp \
+    categoriedao.cpp \
     compte.cpp \
     comptedao.cpp \
     databasemanager.cpp \
@@ -21,6 +22,7 @@ SOURCES += \
 HEADERS += \
     budget.h \
     categorie.h \
+    categoriedao.h \
     compte.h \
     comptedao.h \
     databasemanager.h \

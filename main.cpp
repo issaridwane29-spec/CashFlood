@@ -2,6 +2,8 @@
 #include "databasemanager.h"
 #include "comptedao.h"
 #include "compte.h"
+#include "categoriedao.h"
+#include "categorie.h"
 
 #include <QApplication>
 #include <QDebug>
@@ -24,26 +26,22 @@ int main(int argc, char *argv[])
     while (q.next())
         qDebug() << "Table :" << q.value(0).toString();
 
-    CompteDao dao;
-
-    Compte c(0, "Compte test", "courant", 20000, 2);
-    if (!dao.inserer(c)) {
-        qDebug() << "Erreur insertion :" << dao.derniereErreur();
+    CategorieDao catDao;
+    Categorie cat(0, "Alimentation", "#FF5733");
+    if (!catDao.inserer(cat)) {
+        qDebug() << "Erreur categorie :" << catDao.derniereErreur();
     } else {
-        qDebug() << "Insere, id =" << c.id();
+        qDebug() << "Categorie inseree, id =" << cat.id();
+        cat.setNom("Alimentation modifiee");
+        catDao.modifier(cat);
 
-        c.setNom("Compte modifie");
-        dao.modifier(c);
+        Categorie trouvee;
+        if (catDao.trouver(cat.id(), trouvee))
+            qDebug() << "Trouvee :" << trouvee.nom() << trouvee.couleur();
 
-        Compte trouve;
-        if (dao.trouver(c.id(), trouve))
-            qDebug() << "Trouve :" << trouve.id() << trouve.nom();
-
-        dao.supprimer(c.id());
+        catDao.supprimer(cat.id());
     }
-
-    for (const Compte &x : dao.lister())
-        qDebug() << "Liste :" << x.id() << x.nom() << x.soldeInitial();
+    qDebug() << "Categories restantes :" << catDao.lister().size();
 
     MainWindow w;
     w.show();
