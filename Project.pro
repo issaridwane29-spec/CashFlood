@@ -17,7 +17,8 @@ SOURCES += \
     databasemanager.cpp \
     main.cpp \
     mainwindow.cpp \
-    operation.cpp
+    operation.cpp \
+    operationdao.cpp
 
 HEADERS += \
     budget.h \
@@ -27,7 +28,8 @@ HEADERS += \
     comptedao.h \
     databasemanager.h \
     mainwindow.h \
-    operation.h
+    operation.h \
+    operationdao.h
 
 FORMS += \
     mainwindow.ui

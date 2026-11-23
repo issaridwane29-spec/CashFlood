@@ -2,8 +2,8 @@
 #include "databasemanager.h"
 #include "comptedao.h"
 #include "compte.h"
-#include "categoriedao.h"
-#include "categorie.h"
+#include "operationdao.h"
+#include "operation.h"
 
 #include <QApplication>
 #include <QDebug>
@@ -22,35 +22,31 @@ int main(int argc, char *argv[])
     }
     qDebug() << "Base ouverte :" << chemin;
 
-    QSqlQuery q("SELECT name FROM sqlite_master WHERE type = 'table'");
-    while (q.next())
-        qDebug() << "Table :" << q.value(0).toString();
+    CompteDao compteDao;
+    Compte cpt(0, "Compte test op", "courant", 10000, 9);
+    if (!compteDao.inserer(cpt))
+        qDebug() << "Erreur compte :" << compteDao.derniereErreur();
 
-    CategorieDao catDao;
-    Categorie cat(0, "Alimentation", "#FF5733");
-    if (!catDao.inserer(cat)) {
-        qDebug() << "Erreur categorie :" << catDao.derniereErreur();
+    OperationDao opDao;
+    Operation op(0, "depense", 2500, QDate::currentDate(), "Courses", cpt.id(), 0);
+    if (!opDao.inserer(op)) {
+        qDebug() << "Erreur operation :" << opDao.derniereErreur();
     } else {
-        qDebug() << "Categorie inseree, id =" << cat.id();
-        cat.setNom("Alimentation modifiee");
-        catDao.modifier(cat);
+        qDebug() << "Operation inseree, id =" << op.id();
 
-        Categorie trouvee;
-        if (catDao.trouver(cat.id(), trouvee))
-            qDebug() << "Trouvee :" << trouvee.nom() << trouvee.couleur();
+        op.setMontant(3000);
+        opDao.modifier(op);
 
-        catDao.supprimer(cat.id());
+        Operation trouvee;
+        if (opDao.trouver(op.id(), trouvee))
+            qDebug() << "Trouvee :" << trouvee.type() << trouvee.montant() << trouvee.date();
+
+        qDebug() << "Operations du compte :" << opDao.listerParCompte(cpt.id()).size();
+        opDao.supprimer(op.id());
     }
-    qDebug() << "Categories restantes :" << catDao.lister().size();
+    compteDao.supprimer(cpt.id());
 
     MainWindow w;
     w.show();
     return a.exec();
-
 }
-
-
-
-
-
-
