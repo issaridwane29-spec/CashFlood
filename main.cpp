@@ -4,6 +4,9 @@
 #include "compte.h"
 #include "operationdao.h"
 #include "operation.h"
+#include "budgetdao.h"
+#include "categoriedao.h"
+#include "categorie.h"
 
 #include <QApplication>
 #include <QDebug>
@@ -22,29 +25,28 @@ int main(int argc, char *argv[])
     }
     qDebug() << "Base ouverte :" << chemin;
 
-    CompteDao compteDao;
-    Compte cpt(0, "Compte test op", "courant", 10000, 9);
-    if (!compteDao.inserer(cpt))
-        qDebug() << "Erreur compte :" << compteDao.derniereErreur();
+    CategorieDao catDao;
+    Categorie cat(0, "Cat test budget", "#00AAFF");
+    catDao.inserer(cat);
 
-    OperationDao opDao;
-    Operation op(0, "depense", 2500, QDate::currentDate(), "Courses", cpt.id(), 0);
-    if (!opDao.inserer(op)) {
-        qDebug() << "Erreur operation :" << opDao.derniereErreur();
+    BudgetDao budDao;
+    Budget bud(0, "Budget test", 50000, "mensuel", QList<int>() << cat.id());
+    if (!budDao.inserer(bud)) {
+        qDebug() << "Erreur budget :" << budDao.derniereErreur();
     } else {
-        qDebug() << "Operation inseree, id =" << op.id();
+        qDebug() << "Budget insere, id =" << bud.id();
 
-        op.setMontant(3000);
-        opDao.modifier(op);
+        bud.setPlafond(60000);
+        budDao.modifier(bud);
 
-        Operation trouvee;
-        if (opDao.trouver(op.id(), trouvee))
-            qDebug() << "Trouvee :" << trouvee.type() << trouvee.montant() << trouvee.date();
+        Budget trouve;
+        if (budDao.trouver(bud.id(), trouve))
+            qDebug() << "Trouve :" << trouve.nom() << trouve.plafond()
+                     << "categories :" << trouve.categories().size();
 
-        qDebug() << "Operations du compte :" << opDao.listerParCompte(cpt.id()).size();
-        opDao.supprimer(op.id());
+        budDao.supprimer(bud.id());
     }
-    compteDao.supprimer(cpt.id());
+    catDao.supprimer(cat.id());
 
     MainWindow w;
     w.show();
