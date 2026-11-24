@@ -1,3 +1,4 @@
+# Fichiers de compilation / build Qt Creator
 *.pro.user*
 build/
 build-*/
@@ -12,3 +13,14 @@ moc_*.cpp
 ui_*.h
 qrc_*.cpp
 *.db-journal
+*.user
+*.user.*
+*.autosave
+
+# Bases de données et fichiers de test locaux
+*.db
+*.sqlite
+*.sqlite3
+donnees_test*
+testdata.h
+testdata.cpp
