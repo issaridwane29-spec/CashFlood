@@ -1,3 +1,4 @@
+
 # Fichiers de compilation / build Qt Creator
 *.pro.user*
 build/
@@ -24,3 +25,8 @@ qrc_*.cpp
 donnees_test*
 testdata.h
 testdata.cpp
+=======
+*.user
+*.db
+build-*/
+
