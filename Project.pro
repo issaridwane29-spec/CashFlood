@@ -15,11 +15,16 @@ SOURCES += \
     categoriedao.cpp \
     compte.cpp \
     comptedao.cpp \
+    compteservice.cpp \
     databasemanager.cpp \
     main.cpp \
     mainwindow.cpp \
     operation.cpp \
-    operationdao.cpp
+    operationdao.cpp \
+    comptedialog.cpp \
+    comptewidget.cpp \
+    transactiondialog.cpp \
+    transactionwidget.cpp
 
 HEADERS += \
     budget.h \
@@ -28,14 +33,22 @@ HEADERS += \
     categoriedao.h \
     compte.h \
     comptedao.h \
+    compteservice.h \
     databasemanager.h \
     mainwindow.h \
     operation.h \
-    operationdao.h
+    operationdao.h \
+    comptedialog.h \
+    comptewidget.h \
+    transactiondialog.h \
+    transactionwidget.h
 
 FORMS += \
-    mainwindow.ui
-
+    mainwindow.ui \
+    comptewidget.ui \
+    comptedialog.ui \
+    transactiondialog.ui \
+    transactionwidget.ui
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

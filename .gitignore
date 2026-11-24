@@ -25,7 +25,6 @@ qrc_*.cpp
 donnees_test*
 testdata.h
 testdata.cpp
-=======
 *.user
 *.db
 build-*/

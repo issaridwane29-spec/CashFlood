@@ -2,8 +2,9 @@
 #define COMPTEWIDGET_H
 
 #include <QWidget>
-#include "databasemanager.h"
-class DatabaseManager;
+#include "compte.h"
+#include "comptedao.h"
+#include "compteservice.h"
 
 namespace Ui {
 class CompteWidget;
@@ -15,17 +16,27 @@ class CompteWidget : public QWidget
 
 public:
     explicit CompteWidget(QWidget *parent = nullptr);
-    void setDatabaseManager(DatabaseManager *dbManager);
     ~CompteWidget();
 
+    void setCompteDao(CompteDao *compteDao);
 
-private:
-    Ui::CompteWidget *ui;
-    DatabaseManager *m_dbManager = nullptr;
-
-private slots:
+public slots:
     void rafraichirComptes();
 
+private slots:
+    void onNouveauCompte();
+    void onModifierCompte();
+    void onSupprimerCompte();
+    void onMonterCompte();
+    void onDescendreCompte();
+
+private:
+    int idCompteSelectionne(int *ligneCourante = nullptr) const;
+
+    Ui::CompteWidget *ui;
+
+    CompteDao *m_compteDao = nullptr;
+    CompteService m_compteService;
 };
 
 #endif // COMPTEWIDGET_H

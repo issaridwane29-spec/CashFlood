@@ -41,7 +41,7 @@
     <string>🎓  Ajouter / Modifier un Compte</string>
    </property>
   </widget>
-  <widget class="QDialogButtonBox" name="buttonBox_2">
+  <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
      <x>90</x>
@@ -62,7 +62,7 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -149,8 +149,14 @@
       </item>
       <item>
        <widget class="QDoubleSpinBox" name="spinSoldeInitial">
+        <property name="decimals">
+         <number>3</number>
+        </property>
         <property name="minimum">
          <double>0.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>99999.990000000005239</double>
         </property>
        </widget>
       </item>
