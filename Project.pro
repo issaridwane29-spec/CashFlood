@@ -19,7 +19,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     operation.cpp \
-    operationdao.cpp
+    operationdao.cpp \
+    validateur.cpp
 
 HEADERS += \
     budget.h \
@@ -31,7 +32,8 @@ HEADERS += \
     databasemanager.h \
     mainwindow.h \
     operation.h \
-    operationdao.h
+    operationdao.h \
+    validateur.h
 
 FORMS += \
     mainwindow.ui
