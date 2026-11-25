@@ -11,11 +11,17 @@ CONFIG += c++17
 SOURCES += \
     databasemanager.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    operation.cpp \
+    operationdao.cpp \
+    validateur.cpp
 
 HEADERS += \
     databasemanager.h \
-    mainwindow.h
+    mainwindow.h \
+    operation.h \
+    operationdao.h \
+    validateur.h
 
 FORMS += \
     mainwindow.ui
