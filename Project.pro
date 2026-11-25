@@ -21,9 +21,7 @@ SOURCES += \
     mainwindow.cpp \
     operation.cpp \
     operationdao.cpp \
-    validateur.cpp
-
-HEADERS += \
+    validateur.cpp \
     comptedialog.cpp \
     comptewidget.cpp \
     transactiondialog.cpp \
@@ -53,6 +51,7 @@ FORMS += \
     comptedialog.ui \
     transactiondialog.ui \
     transactionwidget.ui
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
