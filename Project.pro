@@ -39,7 +39,7 @@ HEADERS += \
     mainwindow.h \
     operation.h \
     operationdao.h \
-    validateur.h
+    validateur.h \
     comptedialog.h \
     comptewidget.h \
     transactiondialog.h \
