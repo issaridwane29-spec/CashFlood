@@ -25,6 +25,7 @@ SOURCES += \
     comptewidget.cpp \
     transactiondialog.cpp \
     transactionwidget.cpp
+    validateur.cpp
 
 HEADERS += \
     budget.h \
@@ -42,6 +43,7 @@ HEADERS += \
     comptewidget.h \
     transactiondialog.h \
     transactionwidget.h
+    validateur.h
 
 FORMS += \
     mainwindow.ui \
