@@ -7,6 +7,9 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+class CompteWidget;
+class CompteDao;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -17,5 +20,6 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    CompteWidget *m_compteWidget = nullptr;
 };
 #endif // MAINWINDOW_H

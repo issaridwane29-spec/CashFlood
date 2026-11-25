@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TransactionWidget</class>
+ <widget class="QWidget" name="TransactionWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>827</width>
+    <height>644</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>50</y>
+     <width>511</width>
+     <height>181</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Zone de Recherche et de Filtre</string>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_4">
+    <item row="0" column="0">
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <widget class="QLineEdit" name="lineRecherche">
+        <property name="readOnly">
+         <bool>false</bool>
+        </property>
+        <property name="placeholderText">
+         <string> Rechercher dans la description</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QComboBox" name="comboFiltreType">
+          <item>
+           <property name="text">
+            <string>Tous</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Dépense</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Revenu</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboFiltreCompte">
+          <item>
+           <property name="text">
+            <string>Tous les comptes</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Liste des comptes</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboFilreCategorie">
+          <item>
+           <property name="text">
+            <string>Toutes les catégories</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Liste des catégories</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="2" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QDateEdit" name="dateEdit">
+          <property name="calendarPopup">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDateEdit" name="dateEdit_2">
+          <property name="calendarPopup">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="3" column="0">
+       <widget class="QPushButton" name="BtnReset">
+        <property name="text">
+         <string>Rénitialiser</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>270</y>
+     <width>811</width>
+     <height>361</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Tableau et Gestion des Transactions</string>
+   </property>
+   <widget class="QTableWidget" name="tableWidgetGestion">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>31</y>
+      <width>791</width>
+      <height>271</height>
+     </rect>
+    </property>
+    <column>
+     <property name="text">
+      <string>Type</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Compte</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Catégorie</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Description</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Montant</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Date</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Modifier</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Supprimer</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QPushButton" name="BtnAjouterTransaction">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>320</y>
+      <width>141</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>+ Nouvelle Transaction</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
