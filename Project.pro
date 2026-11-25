@@ -15,6 +15,7 @@ SOURCES += \
     categoriedao.cpp \
     compte.cpp \
     comptedao.cpp \
+    compteoperationservice.cpp \
     compteservice.cpp \
     databasemanager.cpp \
     main.cpp \
@@ -24,7 +25,7 @@ SOURCES += \
     comptedialog.cpp \
     comptewidget.cpp \
     transactiondialog.cpp \
-    transactionwidget.cpp
+    transactionwidget.cpp \
     validateur.cpp
 
 HEADERS += \
@@ -34,6 +35,7 @@ HEADERS += \
     categoriedao.h \
     compte.h \
     comptedao.h \
+    compteoperationservice.h \
     compteservice.h \
     databasemanager.h \
     mainwindow.h \
@@ -42,7 +44,7 @@ HEADERS += \
     comptedialog.h \
     comptewidget.h \
     transactiondialog.h \
-    transactionwidget.h
+    transactionwidget.h \
     validateur.h
 
 FORMS += \

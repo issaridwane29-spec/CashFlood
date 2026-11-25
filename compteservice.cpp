@@ -1,7 +1,9 @@
+//compteservice.cpp
 #include "compteservice.h"
 #include "comptedao.h"
+#include "operationdao.h"
+#include "validateur.h"
 #include <QSqlDatabase>
-#include <QSqlQuery>
 #include <QSqlError>
 
 CompteService::CompteService(const QString &connectionName)
@@ -13,31 +15,25 @@ double CompteService::calculerSoldeActuel(const Compte &compte) const
 {
     m_derniereErreur.clear();
 
-    QSqlDatabase db = m_connectionName.isEmpty()
-        ? QSqlDatabase::database()
-        : QSqlDatabase::database(m_connectionName);
-
-    if (!db.isOpen()) {
-        m_derniereErreur = "La base de données n'est pas ouverte.";
+    OperationDao operationDao;
+    const QList<Operation> operations = operationDao.lister();
+    if (!operationDao.derniereErreur().isEmpty()) {
+        m_derniereErreur = operationDao.derniereErreur();
         return compte.soldeInitial();
     }
 
-    QSqlQuery query(db);
-    query.prepare(
-        "SELECT COALESCE(SUM(CASE "
-        "WHEN typeope = 'revenu' THEN montant "
-        "WHEN typeope = 'depense' THEN -montant "
-        "ELSE 0 END), 0.0) "
-        "FROM operation WHERE idcmpt = :idCompte"
-    );
-    query.bindValue(":idCompte", compte.id());
-
-    if (!query.exec() || !query.next()) {
-        m_derniereErreur = query.lastError().text();
-        return compte.soldeInitial();
+    double mouvementNet = 0.0;
+    for (const Operation &op : operations) {
+        if (op.idCompte() == compte.id()) {
+            const QString typeNorm = op.type().trimmed().toLower();
+            if (typeNorm == "revenu") {
+                mouvementNet += op.montant();
+            } else if (typeNorm == "depense") {
+                mouvementNet -= op.montant();
+            }
+        }
     }
 
-    const double mouvementNet = query.value(0).toDouble();
     return compte.soldeInitial() + mouvementNet;
 }
 
@@ -70,15 +66,26 @@ bool CompteService::echangerOrdre(Compte &compteA, Compte &compteB)
         return true;
     }
 
+    compteA.setOrdre(ancienOrdreB);
+    compteB.setOrdre(ancienOrdreA);
+
+    const QString errA = Validateur::validerCompte(compteA);
+    const QString errB = Validateur::validerCompte(compteB);
+    if (!errA.isEmpty() || !errB.isEmpty()) {
+        m_derniereErreur = !errA.isEmpty() ? errA : errB;
+        compteA.setOrdre(ancienOrdreA);
+        compteB.setOrdre(ancienOrdreB);
+        return false;
+    }
+
     CompteDao dao;
 
     if (!db.transaction()) {
         m_derniereErreur = db.lastError().text();
+        compteA.setOrdre(ancienOrdreA);
+        compteB.setOrdre(ancienOrdreB);
         return false;
     }
-
-    compteA.setOrdre(ancienOrdreB);
-    compteB.setOrdre(ancienOrdreA);
 
     if (!dao.modifier(compteA) || !dao.modifier(compteB)) {
         m_derniereErreur = dao.derniereErreur().isEmpty()

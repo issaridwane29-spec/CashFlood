@@ -23,8 +23,6 @@ qrc_*.cpp
 *.sqlite
 *.sqlite3
 donnees_test*
-testdata.h
-testdata.cpp
 *.user
 *.db
 build-*/

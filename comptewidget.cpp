@@ -1,7 +1,9 @@
+//comptewidget.cpp
 #include "comptewidget.h"
 #include "ui_comptewidget.h"
 #include "comptedialog.h"
 #include "compteservice.h"
+#include "validateur.h"
 #include <QHeaderView>
 #include <QMessageBox>
 #include <QTableWidgetItem>
@@ -11,8 +13,6 @@ CompteWidget::CompteWidget(QWidget *parent) :
     ui(new Ui::CompteWidget)
 {
     ui->setupUi(this);
-    ui->tableGestionCompte->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-
     ui->tableGestionCompte->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableGestionCompte->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableGestionCompte->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -58,11 +58,14 @@ void CompteWidget::rafraichirComptes()
         return;
     }
 
+    // Dans CompteWidget::rafraichirComptes() (comptewidget.cpp)
     const QList<Compte> comptes = m_compteDao->lister();
     ui->tableGestionCompte->setRowCount(0);
 
     for (int i = 0; i < comptes.size(); ++i) {
         const Compte &cpt = comptes.at(i);
+        const double soldeActuel = m_compteService.calculerSoldeActuel(cpt);
+
         ui->tableGestionCompte->insertRow(i);
 
         auto *itemNom = new QTableWidgetItem(cpt.nom());
@@ -71,8 +74,6 @@ void CompteWidget::rafraichirComptes()
 
         auto *itemType = new QTableWidgetItem(cpt.type());
         auto *itemSoldeInit = new QTableWidgetItem(QString::number(cpt.soldeInitial(), 'f', 2));
-
-        const double soldeActuel = m_compteService.calculerSoldeActuel(cpt);
         auto *itemSoldeActuel = new QTableWidgetItem(QString::number(soldeActuel, 'f', 2));
 
         ui->tableGestionCompte->setItem(i, 0, itemNom);
@@ -85,9 +86,9 @@ void CompteWidget::rafraichirComptes()
         itemSoldeActuel->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
     }
 
-    const double soldeTotal = m_compteService.calculerSoldeTotal(comptes);
+    const double total = m_compteService.calculerSoldeTotal(comptes);
     ui->labelSoldeTotal->setText(
-        QString("🧆 Solde Total :  %1").arg(QString::number(soldeTotal, 'f', 2))
+        QString("🧆 Solde Total :  %1").arg(QString::number(total, 'f', 2))
     );
 }
 
@@ -109,6 +110,12 @@ void CompteWidget::onNouveauCompte()
             }
         }
         nouveau.setOrdre(maxOrdre + 1);
+
+        const QString erreur = Validateur::validerCompte(nouveau); //[cite: 1, 2]
+        if (!erreur.isEmpty()) {
+            QMessageBox::warning(this, "Validation", erreur);
+            return;
+        }
 
         if (!m_compteDao->inserer(nouveau)) {
             QMessageBox::critical(this, "Erreur d'ajout", m_compteDao->derniereErreur());
@@ -142,6 +149,12 @@ void CompteWidget::onModifierCompte()
         Compte modifie = dlg.compteResultat();
         modifie.setId(courant.id());
         modifie.setOrdre(courant.ordre());
+
+        const QString erreur = Validateur::validerCompte(modifie); //[cite: 1, 2]
+        if (!erreur.isEmpty()) {
+            QMessageBox::warning(this, "Validation", erreur);
+            return;
+        }
 
         if (!m_compteDao->modifier(modifie)) {
             QMessageBox::critical(this, "Erreur de modification", m_compteDao->derniereErreur());
@@ -206,6 +219,13 @@ void CompteWidget::onMonterCompte()
     c1.setOrdre(c2.ordre());
     c2.setOrdre(ordreTemp);
 
+    const QString err1 = Validateur::validerCompte(c1); //[cite: 1, 2]
+    const QString err2 = Validateur::validerCompte(c2); //[cite: 1, 2]
+    if (!err1.isEmpty() || !err2.isEmpty()) {
+        QMessageBox::warning(this, "Validation", !err1.isEmpty() ? err1 : err2);
+        return;
+    }
+
     if (m_compteDao->modifier(c1) && m_compteDao->modifier(c2)) {
         rafraichirComptes();
         ui->tableGestionCompte->selectRow(row - 1);
@@ -237,6 +257,13 @@ void CompteWidget::onDescendreCompte()
     const int ordreTemp = c1.ordre();
     c1.setOrdre(c2.ordre());
     c2.setOrdre(ordreTemp);
+
+    const QString err1 = Validateur::validerCompte(c1); //[cite: 1, 2]
+    const QString err2 = Validateur::validerCompte(c2); //[cite: 1, 2]
+    if (!err1.isEmpty() || !err2.isEmpty()) {
+        QMessageBox::warning(this, "Validation", !err1.isEmpty() ? err1 : err2);
+        return;
+    }
 
     if (m_compteDao->modifier(c1) && m_compteDao->modifier(c2)) {
         rafraichirComptes();
