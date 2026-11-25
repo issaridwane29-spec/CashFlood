@@ -9,12 +9,6 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    budget.cpp \
-    budgetdao.cpp \
-    categorie.cpp \
-    categoriedao.cpp \
-    compte.cpp \
-    comptedao.cpp \
     databasemanager.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -23,12 +17,6 @@ SOURCES += \
     validateur.cpp
 
 HEADERS += \
-    budget.h \
-    budgetdao.h \
-    categorie.h \
-    categoriedao.h \
-    compte.h \
-    comptedao.h \
     databasemanager.h \
     mainwindow.h \
     operation.h \
