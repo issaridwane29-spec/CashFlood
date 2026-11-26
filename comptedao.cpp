@@ -96,3 +96,28 @@ bool CompteDao::trouver(int id, Compte &resultat)
                       q.value(4).toInt());
     return true;
 }
+
+double CompteDao::solde(int idCompte, bool *ok)
+{
+    if (ok) *ok = false;
+
+    QSqlQuery q;
+    q.prepare(
+        "SELECT c.soldeinitial + COALESCE(SUM(CASE WHEN o.typeope = 'revenu' "
+        "THEN o.montant ELSE -o.montant END), 0) "
+        "FROM compte c LEFT JOIN operation o ON o.idcmpt = c.idcmpt "
+        "WHERE c.idcmpt = :id GROUP BY c.idcmpt");
+    q.bindValue(":id", idCompte);
+
+    if (!q.exec()) {
+        m_erreur = q.lastError().text();
+        return 0.0;
+    }
+    if (!q.next()) {
+        m_erreur = "Compte introuvable";
+        return 0.0;
+    }
+
+    if (ok) *ok = true;
+    return q.value(0).toDouble();
+}
