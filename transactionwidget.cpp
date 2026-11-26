@@ -170,7 +170,7 @@ void TransactionWidget::rafraichirTransactions()
         ui->tableWidgetGestion->setItem(ligne, 4, itemMontant);
         ui->tableWidgetGestion->setItem(ligne, 5, itemDate);
 
-        auto *btnMod = new QPushButton("💄", ui->tableWidgetGestion);
+        auto *btnMod = new QPushButton("🖍️", ui->tableWidgetGestion);
         auto *btnSup = new QPushButton("❌", ui->tableWidgetGestion);
 
         ui->tableWidgetGestion->setCellWidget(ligne, 6, btnMod);

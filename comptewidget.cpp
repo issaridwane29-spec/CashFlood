@@ -88,7 +88,7 @@ void CompteWidget::rafraichirComptes()
 
     const double total = m_compteService.calculerSoldeTotal(comptes);
     ui->labelSoldeTotal->setText(
-        QString("🧆 Solde Total :  %1").arg(QString::number(total, 'f', 2))
+        QString("💰 Solde Total :  %1").arg(QString::number(total, 'f', 2))
     );
 }
 

@@ -22,6 +22,14 @@
      <height>181</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <italic>true</italic>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="title">
     <string>Zone de Recherche et de Filtre</string>
    </property>
@@ -42,6 +50,14 @@
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
          <widget class="QComboBox" name="comboFiltreType">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
+           </font>
+          </property>
           <item>
            <property name="text">
             <string>Tous</string>
@@ -61,6 +77,14 @@
         </item>
         <item>
          <widget class="QComboBox" name="comboFiltreCompte">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
+           </font>
+          </property>
           <item>
            <property name="text">
             <string>Tous les comptes</string>
@@ -75,6 +99,14 @@
         </item>
         <item>
          <widget class="QComboBox" name="comboFilreCategorie">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
+           </font>
+          </property>
           <item>
            <property name="text">
             <string>Toutes les catégories</string>
@@ -93,6 +125,14 @@
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <widget class="QDateEdit" name="dateDebut">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
+           </font>
+          </property>
           <property name="calendarPopup">
            <bool>true</bool>
           </property>
@@ -100,6 +140,14 @@
         </item>
         <item>
          <widget class="QDateEdit" name="dateFin">
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
+           </font>
+          </property>
           <property name="calendarPopup">
            <bool>true</bool>
           </property>
@@ -109,8 +157,16 @@
       </item>
       <item row="3" column="0">
        <widget class="QPushButton" name="BtnReset">
+        <property name="font">
+         <font>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <italic>false</italic>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
-         <string>Rénitialiser</string>
+         <string>♻️  Rénitialiser</string>
         </property>
        </widget>
       </item>
@@ -127,6 +183,14 @@
      <height>361</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <italic>true</italic>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="title">
     <string>Tableau et Gestion des Transactions</string>
    </property>
@@ -138,6 +202,14 @@
       <width>791</width>
       <height>271</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
     </property>
     <column>
      <property name="text">
@@ -185,14 +257,43 @@
      <rect>
       <x>10</x>
       <y>320</y>
-      <width>141</width>
-      <height>21</height>
+      <width>201</width>
+      <height>31</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
-     <string>+ Nouvelle Transaction</string>
+     <string>➕ Nouvelle Transaction</string>
     </property>
    </widget>
+  </widget>
+  <widget class="QLabel" name="titleForm">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>10</y>
+     <width>421</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+     <pointsize>15</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>               📈   Mes Transactions  📉</string>
+   </property>
   </widget>
  </widget>
  <resources/>
