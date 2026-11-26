@@ -15,6 +15,7 @@ public:
     bool supprimer(int id);
     QList<Compte> lister();
     bool trouver(int id, Compte &resultat);
+    double solde(int idCompte, bool *ok = nullptr);
 
     QString derniereErreur() const;
 

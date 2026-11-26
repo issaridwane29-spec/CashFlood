@@ -4,6 +4,8 @@
 #include <QList>
 #include <QString>
 #include <QSqlQuery>
+#include <QMap>
+#include <QDate>
 #include "operation.h"
 
 class OperationDao
@@ -17,6 +19,7 @@ public:
     QList<Operation> lister();
     QList<Operation> listerParCompte(int idCompte);
     bool trouver(int id, Operation &resultat);
+    QMap<QString, double> depensesParCategorie(const QDate &debut, const QDate &fin);
 
     QString derniereErreur() const;
 

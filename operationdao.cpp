@@ -120,3 +120,26 @@ bool OperationDao::trouver(int id, Operation &resultat)
     resultat = depuisRequete(q);
     return true;
 }
+
+QMap<QString, double> OperationDao::depensesParCategorie(const QDate &debut, const QDate &fin)
+{
+    QMap<QString, double> resultat;
+
+    QSqlQuery q;
+    q.prepare(
+        "SELECT COALESCE(c.nomcat, 'Sans categorie'), SUM(o.montant) "
+        "FROM operation o LEFT JOIN categorie c ON c.idcat = o.idcat "
+        "WHERE o.typeope = 'depense' AND o.dateope BETWEEN :debut AND :fin "
+        "GROUP BY o.idcat");
+    q.bindValue(":debut", debut.toString(Qt::ISODate));
+    q.bindValue(":fin", fin.toString(Qt::ISODate));
+
+    if (!q.exec()) {
+        m_erreur = q.lastError().text();   // adapte au nom utilisé dans OperationDao
+        return resultat;
+    }
+    while (q.next())
+        resultat.insert(q.value(0).toString(), q.value(1).toDouble());
+
+    return resultat;
+}
