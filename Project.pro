@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     budget.cpp \
     budgetdao.cpp \
+    budgetservice.cpp \
     categorie.cpp \
     categoriedao.cpp \
     compte.cpp \
@@ -25,11 +26,15 @@ SOURCES += \
     comptedialog.cpp \
     comptewidget.cpp \
     transactiondialog.cpp \
-    transactionwidget.cpp
+    transactionwidget.cpp \
+    categoriewidget.cpp \
+    budgetdialog.cpp \
+    budgetwidget.cpp
 
 HEADERS += \
     budget.h \
     budgetdao.h \
+    budgetservice.h \
     categorie.h \
     categoriedao.h \
     compte.h \
@@ -43,14 +48,20 @@ HEADERS += \
     comptedialog.h \
     comptewidget.h \
     transactiondialog.h \
-    transactionwidget.h
+    transactionwidget.h \
+    categoriewidget.h \
+    budgetdialog.h \
+    budgetwidget.h
 
 FORMS += \
     mainwindow.ui \
     comptewidget.ui \
     comptedialog.ui \
     transactiondialog.ui \
-    transactionwidget.ui
+    transactionwidget.ui \
+    categoriewidget.ui \
+    budgetdialog.ui \
+    budgetwidget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
