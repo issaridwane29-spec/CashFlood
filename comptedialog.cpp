@@ -1,5 +1,7 @@
+//compte dialog.cpp
 #include "comptedialog.h"
 #include "ui_comptedialog.h"
+#include "validateur.h"
 #include <QMessageBox>
 #include <QPushButton>
 
@@ -12,13 +14,12 @@ CompteDialog::CompteDialog(QWidget *parent) :
     // Ajoute "Mobile Money" si absent de la liste du .ui (Espèces, Banques)
     if (ui->comboTypeCompte->findText("Mobile Money") == -1) {
         ui->comboTypeCompte->addItem("Mobile Money");
-     }
+    }
 
-     // Intercepte le clic sur OK pour valider le nom avant fermeture
-     disconnect(ui->buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
-     connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &CompteDialog::onAccepted);
-     connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
-
+    // Intercepte le clic sur OK pour valider le compte avant fermeture
+    disconnect(ui->buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+    connect(ui->buttonBox, &QDialogButtonBox::accepted, this, &CompteDialog::onAccepted);
+    connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 
 CompteDialog::~CompteDialog()
@@ -57,10 +58,17 @@ Compte CompteDialog::compteResultat() const
 
 void CompteDialog::onAccepted()
 {
-    if (ui->lineEditNom_Compte->text().trimmed().isEmpty()) {
-        QMessageBox::warning(this, "Champ requis", "Veuillez saisir un nom de compte.");
-        ui->lineEditNom_Compte->setFocus();
+    const Compte cpt = compteResultat();
+    const QString erreur = Validateur::validerCompte(cpt);
+    if (!erreur.isEmpty()) {
+        QMessageBox::warning(this, "Validation", erreur);
+        if (erreur.contains("nom", Qt::CaseInsensitive)) {
+            ui->lineEditNom_Compte->setFocus();
+        } else if (erreur.contains("type", Qt::CaseInsensitive)) {
+            ui->comboTypeCompte->setFocus();
+        }
         return;
     }
+
     accept();
 }

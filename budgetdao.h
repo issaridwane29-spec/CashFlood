@@ -8,7 +8,7 @@
 class BudgetDao
 {
 public:
-    explicit BudgetDao(const QString &connectionName = QString());
+    BudgetDao();
 
     bool inserer(Budget &budget);
     bool modifier(const Budget &budget);
@@ -22,7 +22,6 @@ private:
     bool enregistrerCategories(int idBudget, const QList<int> &categories);
     QList<int> chargerCategories(int idBudget);
 
-    QString m_connectionName;
     QString m_erreur;
 };
 

@@ -1,8 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "comptewidget.h"
-#include "comptedao.h"
-#include "databasemanager.h"
 #include <QVBoxLayout>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -11,20 +8,36 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Dans MainWindow::MainWindow(QWidget *parent) :
-    auto *layout = new QVBoxLayout(ui->centralwidget);
-    layout->setContentsMargins(0, 0, 0, 0);
+    auto *layoutCentral = new QVBoxLayout(ui->centralwidget);
+    layoutCentral->setContentsMargins(0, 0, 0, 0);
 
-    m_compteWidget = new CompteWidget(ui->centralwidget);
-    layout->addWidget(m_compteWidget);
+    m_onglets = new QTabWidget(this);
+    m_compteWidget = new CompteWidget(this);
+    m_transactionWidget = new TransactionWidget(this);
 
-    // Selon la manière dont la base est ouverte dans ton projet (ex. DatabaseManager ou QSqlDatabase) :
-    static CompteDao compteDao;
-    m_compteWidget->setCompteDao(&compteDao);
+    m_compteWidget->setCompteDao(&m_compteDao);
+    m_transactionWidget->setDaos(&m_operationDao, &m_compteDao, &m_categorieDao);
+
+    // Met à jour l'affichage des comptes dès qu'une transaction est ajoutée, modifiée ou supprimée
+    connect(m_transactionWidget, &TransactionWidget::transactionsModifiees,
+            m_compteWidget, &CompteWidget::rafraichirComptes);
+
+    // Rafraîchit aussi les listes déroulantes et noms de comptes si un compte est modifié
+    connect(m_onglets, &QTabWidget::currentChanged, this, [this](int index) {
+        if (m_onglets->widget(index) == m_transactionWidget) {
+            m_transactionWidget->rafraichirTransactions();
+        } else if (m_onglets->widget(index) == m_compteWidget) {
+            m_compteWidget->rafraichirComptes();
+        }
+    });
+
+    m_onglets->addTab(m_compteWidget, "Mes Comptes");
+    m_onglets->addTab(m_transactionWidget, "Transactions");
+
+    layoutCentral->addWidget(m_onglets);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-

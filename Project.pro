@@ -11,58 +11,48 @@ CONFIG += c++17
 SOURCES += \
     budget.cpp \
     budgetdao.cpp \
-    budgetservice.cpp \
     categorie.cpp \
     categoriedao.cpp \
     compte.cpp \
     comptedao.cpp \
+    compteoperationservice.cpp \
     compteservice.cpp \
     databasemanager.cpp \
     main.cpp \
     mainwindow.cpp \
     operation.cpp \
     operationdao.cpp \
-    validateur.cpp \
     comptedialog.cpp \
     comptewidget.cpp \
     transactiondialog.cpp \
     transactionwidget.cpp \
-    categoriewidget.cpp \
-    budgetdialog.cpp \
-    budgetwidget.cpp
+    validateur.cpp
 
 HEADERS += \
     budget.h \
     budgetdao.h \
-    budgetservice.h \
     categorie.h \
     categoriedao.h \
     compte.h \
     comptedao.h \
+    compteoperationservice.h \
     compteservice.h \
     databasemanager.h \
     mainwindow.h \
     operation.h \
     operationdao.h \
-    validateur.h \
     comptedialog.h \
     comptewidget.h \
     transactiondialog.h \
     transactionwidget.h \
-    categoriewidget.h \
-    budgetdialog.h \
-    budgetwidget.h
+    validateur.h
 
 FORMS += \
     mainwindow.ui \
     comptewidget.ui \
     comptedialog.ui \
     transactiondialog.ui \
-    transactionwidget.ui \
-    categoriewidget.ui \
-    budgetdialog.ui \
-    budgetwidget.ui
-
+    transactionwidget.ui
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

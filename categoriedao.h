@@ -8,7 +8,7 @@
 class CategorieDao
 {
 public:
-    explicit CategorieDao(const QString &connectionName = QString());
+    CategorieDao();
 
     bool inserer(Categorie &categorie);
     bool modifier(const Categorie &categorie);
@@ -19,7 +19,6 @@ public:
     QString derniereErreur() const;
 
 private:
-    QString m_connectionName;
     QString m_erreur;
 };
 
